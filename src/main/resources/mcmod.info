@@ -1,0 +1,8 @@
+[{
+  "modid": "nothirium",
+  "name": "Nothirium",
+  "description": "Fork of Nothirium with advanced chunk rendering optimizations.",
+  "version": "2.1.4",
+  "mcversion": "1.12.2",
+  "clientSideOnly": true
+}]
