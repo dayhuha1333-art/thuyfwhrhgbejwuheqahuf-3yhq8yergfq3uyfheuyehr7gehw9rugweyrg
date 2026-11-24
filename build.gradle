@@ -1,0 +1,52 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle'
+
+version = '2.1.4'
+group = 'meldexun.nothirium'
+archivesBaseName = 'Nothirium'
+
+sourceCompatibility = targetCompatibility = '1.8'
+
+minecraft {
+    mappings channel: 'stable', version: '39-1.12'
+    runs {
+        client {
+            workingDirectory project.file('run')
+            mods { nothirium { source sourceSets.main } }
+        }
+    }
+}
+
+repositories {
+    maven { url = 'https://maven.minecraftforge.net/' }
+    maven { url = 'https://libraries.minecraft.net/' }
+    mavenCentral()
+    maven { url = 'https://api.modrinth.com/maven' }
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'org.ow2.asm:asm:5.2'
+        force 'org.ow2.asm:asm-debug-all:5.2'
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2854'
+    implementation ('maven.modrinth:mixinbooter:PZYBy1vc') { transitive = false }
+    annotationProcessor ('maven.modrinth:mixinbooter:PZYBy1vc') { transitive = false }
+    annotationProcessor 'org.ow2.asm:asm-debug-all:5.2'
+    annotationProcessor 'com.google.guava:guava:32.1.2-jre'
+    annotationProcessor 'com.google.code.gson:gson:2.8.9'
+}
+
+jar.finalizedBy('reobfJar')
